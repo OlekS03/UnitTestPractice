@@ -127,3 +127,40 @@ TEST(PasswordTest, SC_)
     bool actual = my_password.has_mixed_case("!?");
     ASSERT_EQ(false, actual);
 }
+
+//==================================================================//
+
+TEST(PasswordTest, UniqueCharacters_EmptyString)
+{
+    Password my_password;
+    unsigned int actual = my_password.unique_characters("");
+    ASSERT_EQ(0, actual);
+}
+
+TEST(PasswordTest, UniqueCharacters_AllUnique)
+{
+    Password my_password;
+    unsigned int actual = my_password.unique_characters("abcABC123!@#");
+    ASSERT_EQ(12, actual);
+}
+
+TEST(PasswordTest, UniqueCharacters_WithDuplicates)
+{
+    Password my_password;
+    unsigned int actual = my_password.unique_characters("aabbcc");
+    ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, UniqueCharacters_CaseSensitive)
+{
+    Password my_password;
+    unsigned int actual = my_password.unique_characters("Aa");
+    ASSERT_EQ(2, actual);  // 'A' and 'a' are different ASCII chars
+}
+
+TEST(PasswordTest, UniqueCharacters_SpecialCharacters)
+{
+    Password my_password;
+    unsigned int actual = my_password.unique_characters("!!@@##");
+    ASSERT_EQ(3, actual);  // '!', '@', and '#'
+}

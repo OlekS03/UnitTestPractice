@@ -1,5 +1,6 @@
 #include "Password.h"
 #include <string>
+#include <unordered_set>
 
 using std::string;
 
@@ -36,4 +37,14 @@ bool Password::has_mixed_case(string str)
     }
   }
   return false;
+}
+
+unsigned int Password::unique_characters(string str)
+{
+    std::unordered_set<char> uniqueChars;
+    for (char c : str)
+    {
+        uniqueChars.insert(c);
+    }
+    return uniqueChars.size();
 }
