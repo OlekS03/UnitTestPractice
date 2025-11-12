@@ -70,3 +70,60 @@ TEST(PasswordTest, special_characters)
     ASSERT_EQ(3, actual);
 }
 
+//==============================================================================================//
+
+TEST(PasswordTest, SC_$)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("$");
+    ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, SC_0)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("0");
+    ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, all_lowercase)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("hi how are you");
+    ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, first_letter_uppercase)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("Hi how are you");
+    ASSERT_EQ(true, actual);
+}
+
+TEST(PasswordTest, Everything_but_the_first_letters_is_uppercase)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("hI hOW aRE yOU");
+    ASSERT_EQ(true, actual);
+}
+
+TEST(PasswordTest, all_uppercase1)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("HI HOW ARE YOU");
+    ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, all_uppercase2)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("ABAB");
+    ASSERT_EQ(false, actual);
+}
+
+TEST(PasswordTest, SC_)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("!?");
+    ASSERT_EQ(false, actual);
+}
